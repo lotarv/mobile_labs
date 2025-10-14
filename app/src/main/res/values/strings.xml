@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">BigSteppa</string>
+    <string name="app_name">Big Steppa</string>
+    <string name="steps">шагов</string>
+    <string name="make_step">Сделать шаг</string>
+    <string name="reset">Сброс</string>
+    <string name="calendar">Календарь</string>
+    <string name="goal">Новая цель</string>
 </resources>
