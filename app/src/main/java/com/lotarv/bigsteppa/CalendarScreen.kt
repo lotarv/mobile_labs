@@ -32,20 +32,10 @@ fun CalendarScreen(onBack: () -> Unit) {
         ) {
             items(days) { index ->
                 val stepCount = steps[index]
-                Column(
-                    modifier = Modifier
-                        .padding(4.dp)
-                        .aspectRatio(1f)
-                        .background(Color.White),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text("${index + 1}", color = Color.Gray)
-                    Text(
-                        "$stepCount",
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+                CalendarDayItem(
+                    dayNumber = index + 1,
+                    steps = stepCount
+                )
             }
         }
 
