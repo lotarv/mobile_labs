@@ -27,11 +27,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -96,7 +98,7 @@ fun StepTrackerScreen(onOpenCalendar: () -> Unit, modifier: Modifier) {
                 text = "$animatedSteps",
                 style = MaterialTheme.typography.displayLarge
             )
-            Text("${stringResource(R.string.steps)} из $goal", style = MaterialTheme.typography.bodyLarge)
+            Text("${stringResource(R.string.steps)} ${stringResource(R.string.outOf)} $goal", style = MaterialTheme.typography.bodyLarge)
         }
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -138,9 +140,10 @@ fun StepTrackerScreen(onOpenCalendar: () -> Unit, modifier: Modifier) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StepTrackerApp() {
+    val context = LocalContext.current
     var currentScreen by remember { mutableStateOf("main") }
-    var currentLang by remember { mutableStateOf("ru") }
     var expanded by remember { mutableStateOf(false) }
+    var langVersion by remember { mutableStateOf(0) } // ключ для перерисовки
 
     Scaffold(
         topBar = {
@@ -148,8 +151,9 @@ fun StepTrackerApp() {
                 title = { ' ' },
                 actions = {
                     IconButton(onClick = { expanded = true }) {
-                        Text("⋮",fontSize = 28.sp, fontWeight = FontWeight.Bold) // три вертикальные точки
+                        Text("⋮", fontSize = 28.sp, fontWeight = FontWeight.Bold)
                     }
+
                     DropdownMenu(
                         expanded = expanded,
                         onDismissRequest = { expanded = false }
@@ -157,15 +161,17 @@ fun StepTrackerApp() {
                         DropdownMenuItem(
                             text = { Text("Русский") },
                             onClick = {
-                                currentLang = "ru"
+                                LocaleUtils.setLocale(context, "ru")
                                 expanded = false
+                                langVersion++
                             }
                         )
                         DropdownMenuItem(
                             text = { Text("English") },
                             onClick = {
-                                currentLang = "en"
+                                LocaleUtils.setLocale(context, "en")
                                 expanded = false
+                                langVersion++
                             }
                         )
                     }
@@ -173,15 +179,18 @@ fun StepTrackerApp() {
             )
         }
     ) { innerPadding ->
-        when (currentScreen) {
-            "main" -> StepTrackerScreen(
-                onOpenCalendar = { currentScreen = "calendar" },
-                modifier = Modifier.padding(innerPadding)
-            )
-            "calendar" -> CalendarScreen(
-                onBack = { currentScreen = "main" },
-                modifier = Modifier.padding(innerPadding)
-            )
+        // Перерисовка всего интерфейса при смене языка
+        key(langVersion) {
+            when (currentScreen) {
+                "main" -> StepTrackerScreen(
+                    onOpenCalendar = { currentScreen = "calendar" },
+                    modifier = Modifier.padding(innerPadding)
+                )
+                "calendar" -> CalendarScreen(
+                    onBack = { currentScreen = "main" },
+                    modifier = Modifier.padding(innerPadding)
+                )
+            }
         }
     }
 }

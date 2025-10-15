@@ -5,4 +5,5 @@
     <string name="reset">Сброс</string>
     <string name="calendar">Календарь</string>
     <string name="goal">Новая цель</string>
+    <string name="outOf">из</string>
 </resources>

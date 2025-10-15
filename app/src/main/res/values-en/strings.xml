@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Step Tracker</string>
-    <string name="make_step">Take a Step</string>
+    <string name="app_name">Big Steppa</string>
+    <string name="steps">steps</string>
+    <string name="make_step">Make a step</string>
     <string name="reset">Reset</string>
     <string name="calendar">Calendar</string>
+    <string name="goal">New goal</string>
+    <string name="outOf">out of</string>
+
 </resources>
