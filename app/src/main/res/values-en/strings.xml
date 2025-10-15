@@ -7,5 +7,6 @@
     <string name="calendar">Calendar</string>
     <string name="goal">New goal</string>
     <string name="outOf">out of</string>
+    <string name="backBtn">Go back</string>
 
 </resources>

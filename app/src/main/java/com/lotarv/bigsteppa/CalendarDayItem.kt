@@ -1,4 +1,4 @@
-package com.example.steptrackercompose
+package com.lotarv.bigsteppa
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -26,7 +26,7 @@ fun CalendarDayItem(
 
     Box(
         modifier = modifier
-            .padding(4.dp)
+            .padding(2.dp)
             .aspectRatio(1f)
             .background(bgColor),
         contentAlignment = Alignment.Center

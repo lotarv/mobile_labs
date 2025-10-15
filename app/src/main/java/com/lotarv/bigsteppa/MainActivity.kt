@@ -40,7 +40,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.steptrackercompose.CalendarScreen
 import com.lotarv.bigsteppa.ui.theme.BigSteppaTheme
 
 class MainActivity : ComponentActivity() {
@@ -143,7 +142,7 @@ fun StepTrackerApp() {
     val context = LocalContext.current
     var currentScreen by remember { mutableStateOf("main") }
     var expanded by remember { mutableStateOf(false) }
-    var langVersion by remember { mutableStateOf(0) } // ключ для перерисовки
+    var langVersion by remember { mutableStateOf(0) }
 
     Scaffold(
         topBar = {
@@ -179,7 +178,6 @@ fun StepTrackerApp() {
             )
         }
     ) { innerPadding ->
-        // Перерисовка всего интерфейса при смене языка
         key(langVersion) {
             when (currentScreen) {
                 "main" -> StepTrackerScreen(
